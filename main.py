@@ -8,8 +8,6 @@ ctx = canvas.getContext("2d")
 
 def clearCanvas(): ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-
-
 def drawRect(sprite):
     #ctx.fillStyle = sprite["color"]
     #ctx.fillRect(sprite["x"], sprite["y"], sprite["width"], sprite["height"])
@@ -45,6 +43,9 @@ cactus = {
     "image": "public/cactus.png"
 }
 
+FPS = 60
+SPEED = 4
+
 cactuses = [cactus.copy()]
 timer = 0
 
@@ -55,11 +56,11 @@ def update(*args):
     clearCanvas()
     
     timer += 1
-    if timer % 120 == 0 and random.randrange(0,4) == 0:
+    if timer % FPS == 0 and random.randrange(0,4) == 0:
         cactuses.append(cactus.copy())
     
     for cac in cactuses:
-        cac["x"] -= 2;
+        cac["x"] -= 4
         if (cac["x"] + cac["width"] == 0): 
             cactuses.remove(cac)
             continue
@@ -71,10 +72,10 @@ def update(*args):
             return
         
     if dino["jump"] == True:
-        if dino["y"] == 100: dino["jump"] = False
-        else: dino["y"] -= 2
+        if dino["y"] <= 0: dino["jump"] = False
+        else: dino["y"] -= SPEED
     else: 
-        if dino['y'] != canvas.height - dino['height']: dino["y"] += 2
+        if dino['y'] <= canvas.height - dino['height']: dino["y"] += SPEED
     drawRect(dino)
     
     window.requestAnimationFrame(update_proxy)
