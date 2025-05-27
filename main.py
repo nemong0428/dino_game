@@ -55,7 +55,7 @@ def update(*args):
     clearCanvas()
     
     timer += 1
-    if timer % 120 == 0 and random.randrange(0,5) == 0:
+    if timer % 120 == 0 and random.randrange(0,4) == 0:
         cactuses.append(cactus.copy())
     
     for cac in cactuses:
