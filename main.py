@@ -76,9 +76,9 @@ def update(*args):
         if dino["y"] <= 75: dino["jump"] = False
         else: dino["y"] -= JUMP_SPEED
     else: 
-        if dino['y'] < canvas.height - dino['height']:
+        if dino["y"] < canvas.height - dino["height"]:
             dino["y"] += JUMP_SPEED
-        else: dino['y'] = canvas.height - dino['height']
+        else: dino["y"] = canvas.height - dino["height"]
     drawRect(dino)
     
     window.requestAnimationFrame(update_proxy)
@@ -89,6 +89,6 @@ window.requestAnimationFrame(update_proxy)
 
 def onkeydown(KeyboardEvent):
     keyCode = KeyboardEvent.code
-    if keyCode == 'Space' and dino["jump"] == False and dino["y"] >= canvas.height - dino['height']:
+    if keyCode == "Space" and dino["jump"] == False and dino["y"] >= canvas.height - dino["height"]:
         dino["jump"] = True
 window.onkeydown = onkeydown
