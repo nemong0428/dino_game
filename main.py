@@ -44,7 +44,7 @@ cactus = {
 }
 
 FPS = 60
-JUMP_SPEED = 4
+JUMP_SPEED = 6
 CACTUS_SPEED = 4
 
 cactuses = [cactus.copy()]
@@ -73,7 +73,7 @@ def update(*args):
             return
         
     if dino["jump"] == True:
-        if dino["y"] <= 0: dino["jump"] = False
+        if dino["y"] <= 75: dino["jump"] = False
         else: dino["y"] -= JUMP_SPEED
     else: 
         if dino['y'] < canvas.height - dino['height']:
