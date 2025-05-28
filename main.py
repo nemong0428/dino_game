@@ -30,7 +30,7 @@ dino = {
     "height": 50,
     "x": 0,
     "y": 250,
-    "color": "red",
+    #"color": "red",
     "image": "public/dino.png",
     "jump": False,
 }
@@ -39,12 +39,13 @@ cactus = {
     "height": 50,
     "x": 750,
     "y": 250,
-    "color": "green",
+    #"color": "green",
     "image": "public/cactus.png"
 }
 
 FPS = 60
-SPEED = 4
+JUMP_SPEED = 4
+CACTUS_SPEED = 4
 
 cactuses = [cactus.copy()]
 timer = 0
@@ -60,7 +61,7 @@ def update(*args):
         cactuses.append(cactus.copy())
     
     for cac in cactuses:
-        cac["x"] -= 4
+        cac["x"] -= CACTUS_SPEED
         if (cac["x"] + cac["width"] == 0): 
             cactuses.remove(cac)
             continue
@@ -73,9 +74,11 @@ def update(*args):
         
     if dino["jump"] == True:
         if dino["y"] <= 0: dino["jump"] = False
-        else: dino["y"] -= SPEED
+        else: dino["y"] -= JUMP_SPEED
     else: 
-        if dino['y'] <= canvas.height - dino['height']: dino["y"] += SPEED
+        if dino['y'] < canvas.height - dino['height']:
+            dino["y"] += JUMP_SPEED
+        else: dino['y'] = canvas.height - dino['height']
     drawRect(dino)
     
     window.requestAnimationFrame(update_proxy)
@@ -86,6 +89,6 @@ window.requestAnimationFrame(update_proxy)
 
 def onkeydown(KeyboardEvent):
     keyCode = KeyboardEvent.code
-    if keyCode == 'Space' and dino["jump"] == False and dino["y"] == canvas.height - dino['height']:
+    if keyCode == 'Space' and dino["jump"] == False and dino["y"] >= canvas.height - dino['height']:
         dino["jump"] = True
 window.onkeydown = onkeydown
